@@ -36,6 +36,10 @@ public class DataHelper {
     public static AuthInfo generateRandomUser() {
         return new AuthInfo(generateRandomLogin(), generateRandomPassword());
     }
+    public static AuthInfo2 generateUserAndRandomPass() {
+        return new AuthInfo2("vasya", generateRandomPassword());
+    }
+
 
     //получить случайный проверочный код
     public static VerificationCode getRandomVerificationCode() {
@@ -48,7 +52,12 @@ public class DataHelper {
         String generateRandomLogin;
         String generateRandomPassword;
     }
+    @Value
+    public static class AuthInfo2 {
 
+        String testUserLogin;
+        String generateRandomPassword;
+    }
     @Value
     public static class AuthInfo {
 

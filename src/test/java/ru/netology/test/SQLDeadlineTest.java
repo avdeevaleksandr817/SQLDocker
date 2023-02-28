@@ -11,14 +11,14 @@ import static ru.netology.data.SQLHelper.cleanDataBase;
 
 public class SQLDeadlineTest {
 
-    @AfterAll
-    static void clean() {
-        cleanDataBase();
-    }
+//    @AfterAll
+//    static void clean() {
+//        cleanDataBase();
+//    }
 
 
     @Test
-    @DisplayName("Should successful Login to dashboard with exist login and password from sut test data, При успешном входе в панель управления с существующими логином и паролем из данных теста")
+    @DisplayName("Should successful Login to dashboard with exist login and password from sut test data")
     void shouldSuccessfulLogin() {
         //получаем страницу логина
         var LoginPage = open("http://localhost:9999", LoginPage.class);
@@ -74,25 +74,25 @@ public class SQLDeadlineTest {
         //получаем страницу логина
         var LoginPage = open("http://localhost:9999", LoginPage.class);
         //получаем данные аутентификации генерируем рандомного пользователя
-        var authInfo = DataHelper.generateRandomUser();
+        var authInfo2 = DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLogin(authInfo);
+        LoginPage.validLoginAndRandomPass(authInfo2);
         //получаем видимую страницу ошибки
         LoginPage.verifyErrorNotificationVisibility();
         //стираем данные
         LoginPage.cleanAllField();
         //получаем данные аутентификации генерируем рандомного пользователя 2 раз
-        DataHelper.generateRandomUser();
+        DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLogin(authInfo);
+        LoginPage.validLoginAndRandomPass(authInfo2);
         //получаем видимую страницу ошибки
         LoginPage.verifyErrorNotificationVisibility();
         //стираем данные
         LoginPage.cleanAllField();
         //получаем данные аутентификации генерируем рандомного пользователя 3 раз
-        DataHelper.generateRandomUser();
+        DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLogin(authInfo);
+        LoginPage.validLoginAndRandomPass(authInfo2);
         //получаем видимую страницу ошибки, и сообщение "система заблокирована"
         LoginPage.errorLockSystem();
     }

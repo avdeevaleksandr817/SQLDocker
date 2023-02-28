@@ -27,7 +27,12 @@ public class LoginPage {
         loginButton.click();
         return new VerificationPage();
     }
-
+    public VerificationPage validLoginAndRandomPass(DataHelper.AuthInfo2 info) {
+        loginField.setValue(info.getTestUserLogin());
+        passwordField.setValue(info.getGenerateRandomPassword());
+        loginButton.click();
+        return new VerificationPage();
+    }
     private void cleanLoginField() {
         loginField.sendKeys(Keys.CONTROL + "A");
         loginField.sendKeys(BACK_SPACE);
