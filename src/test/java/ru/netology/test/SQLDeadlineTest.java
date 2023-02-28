@@ -11,10 +11,10 @@ import static ru.netology.data.SQLHelper.cleanDataBase;
 
 public class SQLDeadlineTest {
 
-//    @AfterAll
-//    static void clean() {
-//        cleanDataBase();
-//    }
+    @AfterAll
+    static void clean() {
+        cleanDataBase();
+    }
 
 
     @Test
