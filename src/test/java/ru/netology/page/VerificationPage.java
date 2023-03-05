@@ -1,30 +1,33 @@
 package ru.netology.page;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
+import org.openqa.selenium.support.FindBy;
 
 public class VerificationPage {
-    private final SelenideElement codeField = $("[data-test-id=code]");
-    private final SelenideElement verifyButton = $("[data-test-id=action-verify]");
-    private final SelenideElement errorNotification = $("[data-test-id=error-notification]");
+    @FindBy(css = "[data-test-id=code] input")
+    private SelenideElement codeField;
+    @FindBy(css = "[data-test-id=action-verify]")
+    private SelenideElement verifyButton;
+    @FindBy(css = "[data-test-id='error-notification']")
+    private SelenideElement errorNotification;
 
     public void verifyVerificationPageVisibility() {
-        codeField.shouldBe(visible);
+        codeField.shouldBe(Condition.visible);
     }
 
     public void verifyErrorNotificationVisibility() {
-        errorNotification.shouldBe(visible);
-    }
-
-    public void verify(String verificationCode) {
-        codeField.setValue(verificationCode);
-        verifyButton.click();
+        errorNotification.shouldBe(Condition.visible);
     }
 
     public DashboardPage validVerify(String verificationCode) {
         verify(verificationCode);
-        return new DashboardPage();
+        return Selenide.page(DashboardPage.class);
+    }
+    public void verify(String verificationCode) {
+        codeField.setValue(verificationCode);
+        verifyButton.click();
     }
 }
+

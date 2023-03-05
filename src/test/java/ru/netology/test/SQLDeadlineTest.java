@@ -1,21 +1,21 @@
 package ru.netology.test;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
 import ru.netology.page.LoginPage;
 
-
 import static com.codeborne.selenide.Selenide.open;
-import static ru.netology.data.SQLHelper.cleanDataBase;
+
 
 public class SQLDeadlineTest {
-
+    //после всех тестов очищаем БД
     @AfterAll
-    static void clean() {
-        cleanDataBase();
+    static void teardown() {
+        SQLHelper.cleanDatabase();
     }
-
 
     @Test
     @DisplayName("Should successful Login to dashboard with exist login and password from sut test data")
@@ -62,7 +62,7 @@ public class SQLDeadlineTest {
         //получаем рандомный код верификации
         var verificationCode = DataHelper.getRandomVerificationCode();
         //вводим полученный код
-        verificationPage.validVerify(verificationCode.getCode());
+        verificationPage.verify(verificationCode.getCode());
         //получаем видимую страницу ошибки
         verificationPage.verifyErrorNotificationVisibility();
 
@@ -76,7 +76,7 @@ public class SQLDeadlineTest {
         //получаем данные аутентификации генерируем рандомного пользователя
         var authInfo2 = DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLoginAndRandomPass(authInfo2);
+        LoginPage.validLogin(authInfo2);
         //получаем видимую страницу ошибки
         LoginPage.verifyErrorNotificationVisibility();
         //стираем данные
@@ -84,7 +84,7 @@ public class SQLDeadlineTest {
         //получаем данные аутентификации генерируем рандомного пользователя 2 раз
         DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLoginAndRandomPass(authInfo2);
+        LoginPage.validLogin(authInfo2);
         //получаем видимую страницу ошибки
         LoginPage.verifyErrorNotificationVisibility();
         //стираем данные
@@ -92,7 +92,7 @@ public class SQLDeadlineTest {
         //получаем данные аутентификации генерируем рандомного пользователя 3 раз
         DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLoginAndRandomPass(authInfo2);
+        LoginPage.validLogin(authInfo2);
         //получаем видимую страницу ошибки, и сообщение "система заблокирована"
         LoginPage.errorLockSystem();
     }

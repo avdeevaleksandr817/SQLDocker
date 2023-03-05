@@ -9,7 +9,6 @@ import lombok.Value;
 import java.util.Locale;
 
 public class DataHelper {
-
     private static Faker faker = new Faker(new Locale("en"));
 
     private DataHelper() {
@@ -17,52 +16,41 @@ public class DataHelper {
 
     //получить информацию об аутентификации с тестовыми данными
     public static AuthInfo getAuthInfoWithTestData() {
+        return new AuthInfo("vasya", "qwerty123", null, null);
+    }
 
-        return new AuthInfo("vasya", "qwerty123");
+    //тестовый пользователь и случайный пароль
+    public static AuthInfo generateUserAndRandomPass() {
+        return new AuthInfo("vasya", generateRandomPassword(), null, null);
     }
 
     //создать рандомный логин
-    private static String generateRandomLogin() {
+    public static String generateRandomLogin() {
         return faker.name().username();
     }
 
     //создать рандомный пароль
-    private static String generateRandomPassword() {
-
+    public static String generateRandomPassword() {
         return faker.internet().password();
     }
 
     //создать рандомного пользователя
     public static AuthInfo generateRandomUser() {
-        return new AuthInfo(generateRandomLogin(), generateRandomPassword());
+        return new AuthInfo(generateRandomLogin(), generateRandomPassword(), null, null);
     }
-    public static AuthInfo2 generateUserAndRandomPass() {
-        return new AuthInfo2("vasya", generateRandomPassword());
-    }
-
 
     //получить случайный проверочный код
     public static VerificationCode getRandomVerificationCode() {
-
         return new VerificationCode(faker.numerify("######"));
     }
 
     @Value
-    public static class generateRandomUser {
+    public static class AuthInfo {
+        String login;
+        String password;
         String generateRandomLogin;
         String generateRandomPassword;
-    }
-    @Value
-    public static class AuthInfo2 {
 
-        String testUserLogin;
-        String generateRandomPassword;
-    }
-    @Value
-    public static class AuthInfo {
-
-        String testUserLogin;
-        String testUserPassword;
     }
 
     @Value
@@ -79,5 +67,4 @@ public class DataHelper {
         private String code;
         private String created;
     }
-
 }

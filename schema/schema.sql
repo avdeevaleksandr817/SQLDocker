@@ -36,3 +36,5 @@ create TABLE card_transactions
     amount_in_kopecks INT         NOT NULL,
     created           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
