@@ -16,12 +16,12 @@ public class DataHelper {
 
     //получить информацию об аутентификации с тестовыми данными
     public static AuthInfo getAuthInfoWithTestData() {
-        return new AuthInfo("vasya", "qwerty123", null, null);
+        return new AuthInfo("vasya", "qwerty123");
     }
 
     //тестовый пользователь и случайный пароль
     public static AuthInfo generateUserAndRandomPass() {
-        return new AuthInfo("vasya", generateRandomPassword(), null, null);
+        return new AuthInfo("vasya", generateRandomPassword());
     }
 
     //создать рандомный логин
@@ -36,7 +36,7 @@ public class DataHelper {
 
     //создать рандомного пользователя
     public static AuthInfo generateRandomUser() {
-        return new AuthInfo(generateRandomLogin(), generateRandomPassword(), null, null);
+        return new AuthInfo(generateRandomLogin(), generateRandomPassword());
     }
 
     //получить случайный проверочный код
@@ -48,9 +48,6 @@ public class DataHelper {
     public static class AuthInfo {
         String login;
         String password;
-        String generateRandomLogin;
-        String generateRandomPassword;
-
     }
 
     @Value

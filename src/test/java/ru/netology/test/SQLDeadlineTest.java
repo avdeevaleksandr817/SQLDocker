@@ -21,11 +21,11 @@ public class SQLDeadlineTest {
     @DisplayName("Should successful Login to dashboard with exist login and password from sut test data")
     void shouldSuccessfulLogin() {
         //получаем страницу логина
-        var LoginPage = open("http://localhost:9999", LoginPage.class);
+        var loginPage = open("http://localhost:9999", LoginPage.class);
         //получаем данные аутентификации
         var authInfo = DataHelper.getAuthInfoWithTestData();
         //verification заполнив поля и нажав на кнопку
-        var verificationPage = LoginPage.validLogin(authInfo);
+        var verificationPage = loginPage.validLogin(authInfo);
         //на странице верификации проверяем ее видимость
         verificationPage.verifyVerificationPageVisibility();
         //получаем код верификации через Helper
@@ -39,24 +39,24 @@ public class SQLDeadlineTest {
     @DisplayName("Should get error notification if user is not exist in base")
     void shouldGetErrorNotificationIfLoginWithRandomUserWithoutAddingBase() {
         //получаем страницу логина
-        var LoginPage = open("http://localhost:9999", LoginPage.class);
+        var loginPage = open("http://localhost:9999", LoginPage.class);
         //получаем данные аутентификации генерируем рандомного пользователя
         var authInfo = DataHelper.generateRandomUser();
         //на странице логина вводим Random пользователя
-        LoginPage.validLogin(authInfo);
+        loginPage.validLogin(authInfo);
         //получаем видимую страницу ошибки
-        LoginPage.verifyErrorNotificationVisibility();
+        loginPage.verifyErrorNotificationVisibility();
     }
 
     @Test
     @DisplayName("Should get error notification if login with random exist in base and active user and random verification code")
     void shouldGetErrorNotificationIfLoginWithRandomExistInBaseAndActiveUserAndRandomVerificationCode() {
         //получаем страницу логина
-        var LoginPage = open("http://localhost:9999", LoginPage.class);
+        var loginPage = open("http://localhost:9999", LoginPage.class);
         //получаем данные аутентификации
         var authInfo = DataHelper.getAuthInfoWithTestData();
         //verification заполнив поля и нажав на кнопку
-        var verificationPage = LoginPage.validLogin(authInfo);
+        var verificationPage = loginPage.validLogin(authInfo);
         //на странице верификации проверяем ее видимость
         verificationPage.verifyVerificationPageVisibility();
         //получаем рандомный код верификации
@@ -72,29 +72,28 @@ public class SQLDeadlineTest {
     @DisplayName("blocking after three attempts to enter with a random login and password")
     void systemLock() {
         //получаем страницу логина
-        var LoginPage = open("http://localhost:9999", LoginPage.class);
+        var loginPage = open("http://localhost:9999", LoginPage.class);
         //получаем данные аутентификации генерируем рандомного пользователя
         var authInfo2 = DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLogin(authInfo2);
+        loginPage.validLogin(authInfo2);
         //получаем видимую страницу ошибки
-        LoginPage.verifyErrorNotificationVisibility();
+        loginPage.verifyErrorNotificationVisibility();
         //стираем данные
-        LoginPage.cleanAllField();
+        loginPage.cleanAllField();
         //получаем данные аутентификации генерируем рандомного пользователя 2 раз
         DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLogin(authInfo2);
+        loginPage.validLogin(authInfo2);
         //получаем видимую страницу ошибки
-        LoginPage.verifyErrorNotificationVisibility();
+        loginPage.verifyErrorNotificationVisibility();
         //стираем данные
-        LoginPage.cleanAllField();
+        loginPage.cleanAllField();
         //получаем данные аутентификации генерируем рандомного пользователя 3 раз
         DataHelper.generateUserAndRandomPass();
         //на странице логина вводим Random пользователя
-        LoginPage.validLogin(authInfo2);
-        //получаем видимую страницу ошибки, и сообщение "система заблокирована"
-        LoginPage.errorLockSystem();
+        loginPage.validLogin(authInfo2);
+        //получаем видимую страницу ошибки, и сообщение "система заблокированаloginPage.errorLockSystem();
     }
 }
 
